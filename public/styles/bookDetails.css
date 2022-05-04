@@ -1,0 +1,79 @@
+.book-layout{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.left-panel{
+    width: 19%;
+    height: 100%;
+    padding: 2%;
+    margin-right: 2%;
+}
+
+.right-panel{
+    width: 71%;
+    height: 100%;
+    padding: 2%;
+}
+
+.book-cover{
+    justify-content: space-between;
+}
+
+.book-info{
+    display: flex;
+}
+
+.book-title{
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 2%;
+}
+
+.left-panel-side{
+    padding: 2%;
+}
+
+.start-reading{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 5%;
+}
+
+.start-reading-button{
+    width: 100%;
+    padding: 3%;
+    border-radius: 5px;
+    background-color: #6dbac4;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+
+    border-width: 0ch;
+}
+
+.start-reading-button:hover{
+    background-color: #5ca9b3;
+    color: white;
+}
+
+.book-reviews{
+    border: rgb(29, 29, 29) solid 1px;
+    padding-left: 2%;
+}
+
+.section-header{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.review-author-avatar{
+    width: 3em;
+}
+
+.no-more-rewievs{
+    font-weight: bold;
+}

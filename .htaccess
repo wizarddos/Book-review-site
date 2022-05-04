@@ -1,0 +1,2 @@
+ErrorDocument 404 http://localhost/books-site/public/404.php
+ErrorDocument 403 http://localhost/books-site/public/403.php

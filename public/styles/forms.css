@@ -1,0 +1,19 @@
+.input-field{
+    width: 25%;
+    margin: 1%;
+    padding: 1%;
+    border-radius: 2%;
+    font-size: 100%;
+}
+
+.form-submit{
+    width: 30%;
+    padding: 1%;
+    font-size: 100%;
+}
+
+.form{
+    padding: 2%;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0, 0.4);
+}
