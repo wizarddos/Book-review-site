@@ -1,0 +1,29 @@
+.review-content{
+    resize: horizontal;
+}
+
+.star-rating {
+  font-size: 4em;
+  background: transparent;
+  border: none;
+}
+
+[type=radio] { 
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  [type=radio] + .star-rating {
+    cursor: pointer;
+  }
+  
+ .checked{
+   color: gold;
+ }
+
+  .fa-star{
+    font-size: 40px;
+  }
+
