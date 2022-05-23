@@ -20,7 +20,7 @@ Web app written i vanilla php, html, css and js. There you can add, read and rev
     3. Fill `connect.php` file with proper for your config data (example is located in `src/data/examples/connect-example.php`)
     4. It's ready! Go to `http://localhost/Book-review-site` and enjoy
 
-* Contributing
+## Contributing
     You can review code of this project if you want. I really appreciate that.
 
     Only thing is that this project's UI is written in Polish language (till now, it may change in the future)
