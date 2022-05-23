@@ -17,3 +17,15 @@
     background-color: rgb(0,0,0); 
     background-color: rgba(0,0,0, 0.4);
 }
+
+.button-accept{
+    color: #000;
+    background-color: #A1E44D;
+    border: 2px solid #000;
+    border-radius: 3px;
+    font-size: 100%;
+}
+
+.button-accept:hover{
+    background-color: #B2F55E;
+}

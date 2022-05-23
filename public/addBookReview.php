@@ -12,7 +12,7 @@
     <?php require_once 'ui/header.php'; ?>
     <?php //! html template start ?>
     <main class = "centered-content ad-baner">
-       <form method="POST" action="../src/api/userController.php" class="form">
+       <form method="POST" action="../src/api/bookController.php" class="form">
            <legend> <h1>Dodaj Recenzję dla książki: Książka</h1></legend>
            <?php require_once "ui/stars.php"; ?>
            <textarea name="review" class="review-content" cols="60" rows="10" placeholder="Wpisz swoją opinię..."></textarea><br/>

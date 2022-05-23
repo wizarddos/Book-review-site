@@ -1,8 +1,3 @@
-<?php session_start();
-if(isset($_SESSION['auth-token'])){
-    header('Location: profile.php');
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,5 +19,6 @@ if(isset($_SESSION['auth-token'])){
            <input class = "form-submit" type="submit" value="Zarejestruj się"><br/><br/>
            <a class = "content-link" href = "login.php">Masz już konto? Zaloguj się!</a>
        </form>
+    </main>
 </body>
 </html>
