@@ -29,30 +29,9 @@
         </form>
 
         <?php //!html template start ?>
-            <div class = "result-book">
-                <img src = "img/book-cover.jpg" class = "book-cover" alt = "okładka książki książka"/>
-                <div class = "bookInfo">
-                   <a href = "bookDetails.php?bookid="><h2>Książka</h2></a>
-                   <a href = "authorDetails.php?authorid="><p>Autor</p></a>
-                    <p>Cena</p>
-                   <a href = "bookCategory.php?categoryid="> <p>Kategoria</p></a>
-                   <a href = "publishers.php?publisherid="> <p>Wydawnictwo</p></a>
-                    <p>Data wydania</p>
-                </div>
-            </div>
-        <?php //!html template end ?>
-        <?php //!html template start ?>
-            <div class = "result-book">
-                <img src = "img/book-cover.jpg" class = "book-cover" alt = "okładka książki książka"/>
-                <div class = "bookInfo">
-                   <a href = "bookDetails.php?bookid="><h2>Książka</h2></a>
-                   <a href = "authorDetails.php?authorid="><p>Autor</p></a>
-                    <p>Cena</p>
-                   <a href = "bookCategory.php?categoryid="> <p>Kategoria</p></a>
-                   <a href = "publishers.php?publisherid="> <p>Wydawnictwo</p></a>
-                    <p>Data wydania</p>
-                </div>
-            </div>
+            <?php require 'ui/book-card.php'; ?>
+            <?php require 'ui/book-card.php'; ?>
+            <?php require 'ui/book-card.php'; ?>
         <?php //!html template end ?>
         <script src = "ui/js/filter.js"></script>
     </main>

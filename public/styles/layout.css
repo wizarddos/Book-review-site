@@ -1,0 +1,47 @@
+.two-el-layout{
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+
+}
+
+.four-el-grid-layout{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1rem;
+    margin: 2% auto;
+    padding: 0;
+}
+
+.grid-el{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    background: #fff;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+}
+
+.grid-el-side{
+    width: 25%;
+    margin: 2%;
+}
+
+.grid-el-main{
+    width: 75%;
+    margin: 2%;
+}
+
+.gap-small{
+    grid-gap: 0.5em;
+}
+
+.centered-content{
+    text-align: center;
+}
+
+.background-darker{
+    background: #ddd;
+}

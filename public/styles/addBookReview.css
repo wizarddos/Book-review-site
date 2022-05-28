@@ -19,10 +19,6 @@
     cursor: pointer;
   }
   
- .checked{
-   color: gold;
- }
-
   .fa-star{
     font-size: 40px;
   }
