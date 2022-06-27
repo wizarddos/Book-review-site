@@ -1,3 +1,7 @@
+<?php 
+session_start();     
+require_once "ui/book-card.php";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -14,10 +18,10 @@
             <h2>Kategorie książek</h2>
             <?php //! html template start ?>
                 <ul class = "category-list">
-                    <a class= "category-link" href = "category.php?categoryid="><li>Fantasy</li></a>
-                    <a class= "category-link" href = "category.php?categoryid="><li>Kryminał</li></a>
-                    <a class= "category-link" href = "category.php?categoryid="><li>Sci-fi</li></a>
-                    <a class= "category-link" href = "category.php?categoryid="><li>Dokumentalne</li></a>
+                    <a class= "category-link" href = "category.php?category="><li>Fantasy</li></a>
+                    <a class= "category-link" href = "category.php?category="><li>Kryminał</li></a>
+                    <a class= "category-link" href = "category.php?category="><li>Sci-fi</li></a>
+                    <a class= "category-link" href = "category.php?category="><li>Dokumentalne</li></a>
 
                 </ul>
             <?php //! html template end ?>
@@ -25,8 +29,8 @@
         <section class = "books grid-el grid-el-main">
             <h2>Polecane Książki</h2>
             <?php 
-                require 'ui/book-card.php';  
-                require 'ui/book-card.php';
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
             ?>
             
         </section>

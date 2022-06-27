@@ -1,5 +1,17 @@
-<?php session_start(); ?>
-<!DOCTYPE html>
+<?php
+session_start();
+if(!isset($_SESSION['auth-token'])){
+    header('Location: 403.php');
+}else{
+    $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
+    if($_GET['userid'] === $userData['id']){
+        header('Location: profile.php');
+    }else{
+        require_once "ui/book-card.php";
+    }
+}
+?>
+
 <html lang="pl">
 <head>
     <?php require_once "ui/metas.php"; ?>
@@ -13,36 +25,25 @@
         <main class = "book-layout">
             <section class = "left-panel">
                 <section class = "book-info">
-                    <img class = "book-cover" src = "img/book-cover.jpg" alt = "Okładka książki: 'książka'"/> <?php //! 'książka' do podmienienia w php?>
+                   
                     <section class = "left-panel-side">
-                        <h1 class = "book-title">Książka</h1>
-                        <p class = "book-author">Autor: Autor</p>
+                        <h1 class = "book-title">Użytkownik - </h1>
+                        <p class = "book-author">Dołączył: </p>
                     </section>
                 </section>
-                <form class  = "start-reading" action = "../src/api/routes.php" method = "post">
-                    <input type = "hidden" name = "bookId" value = "1">
-                    <input type = "hidden" name = "action" value = "startReading">
-                    <input class = "start-reading-button" type = "submit" value = "Rozpocznij czytanie" />
-                </form>
             </section>
             <section class = "right-panel">
                 <section class = "book-details">
-                    <h2 class = "section-header">O książce:</h2>
+                    <h2 class = "section-header">Ostatnio Przeczytana Książka</h2>
                     <p class = "book-desc">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum risus felis, sit amet dignissim<br/>
-                        dolor mattis non. Aliquam mauris elit, maximus vitae lacus non, vehicula luctus dui. Maecenas sit amet tempus metus, sed <br/>
-                        placerat nulla. Sed id felis varius, posuere quam a, iaculis sem. In hac habitasse platea dictumst. Sed venenatis ligula ac est <br/>
-                        consectetur, nec pretium mauris rutrum. Donec lobortis ultrices ligula et egestas. Nulla accumsan, nisi ut viverra dapibus, nibh massa <br/>
-                        commodo ex, quis egestas ex lorem et quam. Curabitur nec magna tempor quam pulvinar tempor. Curabitur pellentesque ut sapien congue pellentesque.
+                        <?php
+                         generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                        ?>
                     </p>
                 </section>
                 <section class = "book-reviews">
-                    <h2 class = "section-header">Recenzje</h2>
+                    <h2 class = "section-header">Najnowsza Recenzja</h2>
                     <div class = "review">
-                        <p class = "review-author">
-                                <img class = "review-author-avatar" src = "img/pfp.svg" alt = "Avatar autora recenzji"/>
-                                Autor recenzji: test-user
-                            </p>
                         <p class = "review-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum risus felis, sit amet dignissim dolor mattis non.
                             <br/>Aliquam mauris elit, maximus vitae lacus non, vehicula luctus dui. Maecenas sit amet tempus metus, sed placerat nulla. 
                             <br/>Sed id felis varius, posuere quam a, iaculis sem. 

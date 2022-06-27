@@ -1,3 +1,11 @@
+<?php
+session_start();
+if(!isset($_SESSION['auth-token'])){
+    header('Location: 403.php');
+}else{
+    $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

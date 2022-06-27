@@ -22,6 +22,7 @@ if(!isset($request['action'])){
             }
         break;
         case 'register': $_SESSION['userClass']->register($request); break;
+        case 'logout': $_SESSION['userClass']->logout(); break;
 
         default: echo json_encode(['error' => 'No such action']);
     }

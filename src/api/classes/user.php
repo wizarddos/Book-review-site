@@ -4,6 +4,7 @@ class User{
     private int $id;
     private string $email;
     private string $ip;
+    private bool $isAdmin;
 
     public function __construct()
     {
@@ -32,12 +33,14 @@ class User{
                 $this->id = $user['id'];
                 $this->email = $user['email'];
                 $this->ip = $_SERVER['REMOTE_ADDR'];
+                $this->isAdmin = $user['isAdmin'];
 
                 $_SESSION['auth-token'] = base64_encode(json_encode([
                     'username' => $this->username,
                     'id' => $this->id,
                     'email' => $this->email,
-                    'ip' => $this->ip
+                    'ip' => $this->ip,
+                    'isAdmin' => $this->isAdmin
                 ]));
                 return true;
             }
@@ -45,5 +48,12 @@ class User{
 
         return false;
 
+    }
+
+    public function logout(){
+        session_unset();
+
+        header('Location: ../../public');
+        return true;
     }
 }

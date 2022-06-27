@@ -1,3 +1,7 @@
+<?php 
+session_start();
+require_once "ui/book-card.php";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -27,12 +31,10 @@
                     </label>
                 </div>
         </form>
-
-        <?php //!html template start ?>
-            <?php require 'ui/book-card.php'; ?>
-            <?php require 'ui/book-card.php'; ?>
-            <?php require 'ui/book-card.php'; ?>
-        <?php //!html template end ?>
+        <?php 
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+            ?>
         <script src = "ui/js/filter.js"></script>
     </main>
 </body>

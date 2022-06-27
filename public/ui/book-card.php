@@ -1,19 +1,36 @@
-<div class = "result-book">
-    <img src = "img/book-cover.jpg" class = "book-cover" alt = "okładka książki książka"/>
-        <div class = "bookInfo">
-            <a href = "bookDetails.php?bookid="><h2>Książka o super bardzo długim tytule</h2></a>
-            <a href = "authorDetails.php?authorid="><p>Autor</p></a>
-            <p>Cena</p>
-            <a href = "bookCategory.php?categoryid="> <p>Kategoria</p></a>
-            <a href = "publishers.php?publisherid="> <p>Wydawnictwo</p></a>
-            <p>Data wydania</p>
-            <p>
-                Ocena: 
-                <i class = "fa fa-star"></i>
-                <i class = "fa fa-star"></i>
-                <i class = "fa fa-star"></i>
-                <i class = "fa fa-star"></i>
-                <i class = "fa fa-star"></i>
+<?php 
+    function generateCard($bookData){
+        [$path, $title, $author, $price, $category, $publisher, $date, $rating] = $bookData;
+        echo <<<END
+        <div class = "result-book">
+            <img src = "$path" class = "book-cover" alt = "okładka książki książka"/>
+                <div class = "bookInfo">
+                    <a href = "bookDetails.php?bookid="><h2>$title</h2></a>
+                    <p>$author</p>
+                    <p>$price</p>
+                    <a href = "category.php?category="> <p>$category</p></a>
+                    <p>$publisher</p>
+                    <p>$date</p>
+                    <p>
+                        Ocena: 
+        END;
+        getRating($rating);
+    }
+
+    function getRating($rating){
+        for($i=0; $i < 5; $i++){
+            if($i < $rating){
+                echo ' <i class = "fa fa-star checked"></i>';
+            }else{
+                echo ' <i class = "fa fa-star"></i>';
+            }
+        }
+
+        echo <<<END
             </p>
         </div>
-</div>
+        </div>
+        END;
+    }
+?>
+

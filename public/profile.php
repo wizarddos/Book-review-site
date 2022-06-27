@@ -11,23 +11,55 @@ if(!isset($_SESSION['auth-token'])){
 <html lang="en">
 <head>
     <?php require_once "ui/metas.php"; ?>
+    <link rel = "stylesheet" href="styles/profile.css" />
     <title>Twój profil </title>
 </head>
-<body>
+<body class = "background-darker">
     <?php require_once "ui/header.php" ?>
-    <main class = "four-el-grid-layout">
+    <main  class = "three-el-grid-layout">
         <section class = "grid-el">
             <h1>Witaj ponownie <?php echo $userData['username'] ?></h1>
+            <div class = "profile-options">
+                <a href = "editProfile.php" class = "button-styled-link warning-background">Edytuj profil</a>
+                <a href = "yourBooks.php" class = "button-styled-link warning-background">Twoje Książki</a>
+                
+            </div>
+            <div class = "profile-options">
+            <a href = "../src/api/userController.php?action=logout" class = "button-styled-link danger-background">Wyloguj się</a>
+                <?php
+                    if($userData['isAdmin']){
+                        echo '<a href = "adminPanel.php" class = "button-styled-link danger-background">Panel Admina</a>';
+                    }
+                ?>
+            </div>
+            
         </section>
-        <section class = "grid-el">
+        <section class = "grid-el continue-reading">
             <h1>Kontynuuj czytanie</h1>
-            <?php echo "książka" ?>
+                <ul class = "list">
+                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
+                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
+                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
+                </ul>
         </section>
         <section class = "grid-el">
-            <h1>Witaj ponownie <?php echo $userData['username'] ?></h1>
-        </section>
-        <section class = "grid-el">
-            <h1>Witaj ponownie <?php echo $userData['username'] ?></h1>
+            <h1>Ostatnia aktywność twoich znajomych</h1>
+            <section>
+                <ul class = "list">
+                    <?php //! PHP template start?> 
+                        <div class = "friends-activity">
+                            <a href = "user.php?userid=">{FriendName}</a>
+                            <p>{read/added/deleted/started}</p>
+                            <a href = "bookDetails.php?bookid=">{BookName}</a>
+                        </div>
+                        <div class = "friends-activity">
+                            <a href = "user.php?userid=">{FriendName}</a>
+                            <p>{read/added/deleted/started}</p>
+                            <a href = "bookDetails.php?bookid=">{BookName}</a>
+                        </div>
+                    <?php   //! PHP template end ?>
+                </ul>
+            </section>
         </section>
     </main>
 </body>

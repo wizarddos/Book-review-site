@@ -1,0 +1,15 @@
+
+.link-styled-button{
+    border: none;
+    background-color: transparent;
+    width: 100%;
+}
+
+.list{
+    width: 100%;
+}
+
+.content{
+    font-size: large;
+    width: 80%;
+}

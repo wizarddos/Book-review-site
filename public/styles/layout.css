@@ -45,3 +45,38 @@
 .background-darker{
     background: #ddd;
 }
+
+.three-el-grid-layout{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    margin: 2% auto;
+    padding: 0;
+}
+
+.tabs-nav{
+    margin: 2%;
+}
+
+.tab-nav-button{
+    padding: 0.5% 5%;
+    font-size: x-large;
+}
+
+
+.hidden{
+    display: none;
+}
+
+.content{
+    margin: 0 5%;
+}
+
+.active{
+    background-color: #547AA5;
+    color: #bbb;
+}
+
+.spacing{
+    margin-bottom: 3%;
+}

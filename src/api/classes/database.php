@@ -14,16 +14,9 @@ class Database{
         }
     }
 
-    /**
-     * @return array
-     * @throws Exception
-     * 
-     * This function returns an array with query results from the database.
-     */
 
     public function runQuery(string $query, array $arg){
         $sql = $query;
-
         try{
             $db = new PDO($this->dsn, $this->username, $this->password);
             $stmt = $db->prepare($sql);

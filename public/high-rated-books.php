@@ -1,3 +1,7 @@
+<?php 
+session_start();
+require_once "ui/book-card.php";
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -12,8 +16,8 @@
         <section class = "books grid-el grid-el-main">
             <h2>Najwyżej oceniane Książki</h2>
             <?php 
-                require 'ui/book-card.php';  
-                require 'ui/book-card.php';
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
             ?>
             
         </section>
