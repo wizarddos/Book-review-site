@@ -19,11 +19,14 @@
                         <p class = "book-author">Autor: Autor</p>
                     </section>
                 </section>
-                <form class  = "start-reading" action = "../src/api/routes.php" method = "post">
+                <form class  = "start-reading" action = "../src/api/bookController.php" method = "post">
                     <input type = "hidden" name = "bookId" value = "1">
                     <input type = "hidden" name = "action" value = "startReading">
                     <input class = "start-reading-button" type = "submit" value = "Rozpocznij czytanie" />
                 </form>
+                <div class ="add-review">
+                    <a href = "addBookReview.php?bookid=" class = "button-styled-link accept-background">Dodaj Recenzję</a>
+                </div>
             </section>
             <section class = "right-panel">
                 <section class = "book-details">

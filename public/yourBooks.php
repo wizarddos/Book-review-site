@@ -44,6 +44,9 @@ if(!isset($_SESSION['auth-token'])){
             ?>
         </section>
         <section class = "content hidden tab" id = "tab3">
+            <div class ="add-book">
+                <a href = "addBook.php" class = "button-styled-link accept-background">Dodaj Książke</a>
+            </div>
             <?php 
                 generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
                 generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);

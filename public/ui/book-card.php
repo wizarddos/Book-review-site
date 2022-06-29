@@ -1,11 +1,11 @@
 <?php 
-    function generateCard($bookData){
+    function generateCard($bookData, $id=0){
         [$path, $title, $author, $price, $category, $publisher, $date, $rating] = $bookData;
         echo <<<END
         <div class = "result-book">
             <img src = "$path" class = "book-cover" alt = "okładka książki książka"/>
                 <div class = "bookInfo">
-                    <a href = "bookDetails.php?bookid="><h2>$title</h2></a>
+                    <a href = "bookDetails.php?bookid=$id"><h2>$title</h2></a>
                     <p>$author</p>
                     <p>$price</p>
                     <a href = "category.php?category="> <p>$category</p></a>

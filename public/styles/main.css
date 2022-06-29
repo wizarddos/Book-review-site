@@ -98,3 +98,17 @@ a:hover{
     background-color: #DF2935;
     color: #fff;
 }
+
+.accept-background{
+    background-color: #A1E44D;
+}
+
+.button-styled-link{
+    margin: 0 3%;
+    
+    padding: 2% 5%;
+    border: 2px solid #000;
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+}

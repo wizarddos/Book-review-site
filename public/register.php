@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <?php require_once "ui/metas.php" ?>
     <link rel = "stylesheet" href = "styles/forms.css">

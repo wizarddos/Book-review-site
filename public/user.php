@@ -54,8 +54,6 @@ if(!isset($_SESSION['auth-token'])){
                             <br/>Curabitur pellentesque ut sapien congue pellentesque.
                         </p>
                     </div>
-
-                    <p class = "no-more-reviews">Nie ma więcej recenzji</p>
                 </section>
         </main>    
     <?php //! front-end template end ?>
