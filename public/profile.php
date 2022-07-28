@@ -4,6 +4,9 @@ if(!isset($_SESSION['auth-token'])){
     header('Location: 403.php');
 }else{
     $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
+    require_once "../src/api/classes/books.php";
+
+    $books = new Books();
 }
 ?>
 
@@ -37,9 +40,18 @@ if(!isset($_SESSION['auth-token'])){
         <section class = "grid-el continue-reading">
             <h1>Kontynuuj czytanie</h1>
                 <ul class = "list">
-                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
-                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
-                    <li><a href = "bookDetails.php?bookid=">Tytuł - Autor</a></li>
+                <?php 
+                    $finishedBooks = $books->showBooks('read', isset($userData), [$userData['id']]);
+                    foreach($finishedBooks as $readData){
+                        $book = $books->fetchForCard($readData['book_id']);
+                        echo  '<a href = "bookDetails.php?bookid='.$readData['book_id'].'">'.$book[0]['book_title'].'-'.$book[0]['book_author'].'</a> <br/>';
+                    }
+
+                    if(empty($finishedBooks)){
+                        echo '<p>Nie czytasz żadnych książek</p>';
+                        echo '<a href = "recommended-books.php">Zacznij nową książkę</a>';
+                    }
+                ?>
                 </ul>
         </section>
         <section class = "grid-el">

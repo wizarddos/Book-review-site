@@ -5,6 +5,9 @@ if(!isset($_SESSION['auth-token'])){
 }else{
     $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
     require_once 'ui/book-card.php';
+    require_once "../src/api/classes/books.php";
+
+    $books = new Books();
 }
 ?>
 <!DOCTYPE html>
@@ -24,23 +27,31 @@ if(!isset($_SESSION['auth-token'])){
         <button class = "tab-nav-button button-tab" id ="added">Dodane</button>
     </section>
     <div class = "tabs-container">
-        <?php //! html template start ?>
         <section class = "content tab" id = "tab0">
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                $finishedBooks = $books->showBooks('finished', isset($userData), [$userData['id']]);
+                foreach($finishedBooks as $readData){
+                    $book = $books->fetchForCard($readData['book_id']);
+                    generateCard([$book[0]['path'], $book[0]['book_title'], $book[0]['book_author'], $book[0]['book_categories'], $book[0]['date'], $book[0]['book_rate']], $book[0]['book_id']);
+                }
             ?>
         </section>
         <section class = "content hidden tab" id = "tab1">
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+               $finishedBooks = $books->showBooks('read', isset($userData), [$userData['id']]);
+               foreach($finishedBooks as $readData){
+                   $book = $books->fetchForCard($readData['book_id']);
+                   generateCard([$book[0]['path'], $book[0]['book_title'], $book[0]['book_author'], $book[0]['book_categories'], $book[0]['date'], $book[0]['book_rate']], $book[0]['book_id']);
+               }
             ?>
         </section>
         <section class = "content hidden tab" id = "tab2">
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                $finishedBooks = $books->showBooks('favourite', isset($userData), [$userData['id']]);
+                foreach($finishedBooks as $readData){
+                    $book = $books->fetchForCard($readData['book_reviewed_id']);
+                    generateCard([$book[0]['path'], $book[0]['book_title'], $book[0]['book_author'], $book[0]['book_categories'], $book[0]['date'], $book[0]['book_rate']], $book[0]['book_id']);
+                }
             ?>
         </section>
         <section class = "content hidden tab" id = "tab3">
@@ -48,11 +59,13 @@ if(!isset($_SESSION['auth-token'])){
                 <a href = "addBook.php" class = "button-styled-link accept-background">Dodaj Książke</a>
             </div>
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+               $finishedBooks = $books->showBooks('added', isset($userData), [$userData['id']]);
+               foreach($finishedBooks as $readData){
+                   $book = $books->fetchForCard($readData['book_id']);
+                   generateCard([$book[0]['path'], $book[0]['book_title'], $book[0]['book_author'], $book[0]['book_categories'], $book[0]['date'], $book[0]['book_rate']], $book[0]['book_id']);
+               }
             ?>
         </section>
-        <?php //! html template end ?>
     </div>
 
     <script src = "ui/js/tabs.js"></script>

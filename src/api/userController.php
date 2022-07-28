@@ -25,8 +25,6 @@ if(!isset($request['action'])){
                 if($_SESSION['userClass']->register($request)){
                     if($_SESSION['userClass']->logIn(['username' => $request['username'], 'password' => $request['password']])){
                         header('Location: ../../public/profile.php');
-                    }else{
-                        echo 'Nie pykło';
                     }
                 } break;
 

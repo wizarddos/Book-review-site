@@ -7,18 +7,17 @@ class Database{
 
     public function __construct()
     {
-        if(require_once "../data/connect.php"){
-            $this->dsn = $db_dsn;
-            $this->username = $db_user;
-            $this->password = $db_pass;
-        }
+        $this->dsn = "mysql:host=".$_SERVER['SERVER_NAME'].";dbname=book-site";;
+        $this->username = 'root';
+        $this->password = '';
     }
 
 
-    public function runQuery(string $query, array $arg){
+    public function runQuery(string $query, array $arg = []){
         $sql = $query;
         try{
             $db = new PDO($this->dsn, $this->username, $this->password);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $stmt = $db->prepare($sql);
             $stmt->execute($arg);
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

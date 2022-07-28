@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <?php require_once "ui/metas.php"; ?>
-    <title>404 - Nie znalezieno</title>
+    <title>403 - Odmowa Dostępu</title>
 </head>
 <body>
     <?php require_once 'ui/header.php'; ?>

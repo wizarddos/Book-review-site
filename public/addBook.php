@@ -26,7 +26,7 @@ if(!isset($_SESSION['auth-token'])){
            <br/>
            <input type = "text" name = "author" placeholder="Autor książki" class = "input-field" />
            <br/>
-           <textarea name="review" class="review-content" cols="60" rows="10" placeholder="Opis Książki"></textarea><br/>
+           <textarea name="desc" class="review-content" cols="60" rows="10" placeholder="Opis Książki"></textarea><br/>
            <input type = "hidden" name = "action" value = "newBook">
            <input class = "form-submit" type="submit" value="Dodaj Książkę"><br/><br/>
            <?php echo isset($_SESSION['review_err']) ?  $_SESSION['review_err']  : "";?>

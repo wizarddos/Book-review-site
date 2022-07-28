@@ -7,7 +7,7 @@ if(!isset($_SESSION['auth-token'])){
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <?php require_once 'ui/metas.php'; ?>
 
@@ -18,18 +18,20 @@ if(!isset($_SESSION['auth-token'])){
 </head>
 <body>
     <?php require_once 'ui/header.php'; ?>
-    <?php //! html template start ?>
     <main class = "centered-content ad-baner">
        <form method="POST" action="../src/api/bookController.php" class="form">
            <legend> <h1>Dodaj Recenzję dla książki: Książka</h1></legend>
            <?php require_once "ui/stars.php"; ?>
            <textarea name="review" class="review-content" cols="60" rows="10" placeholder="Wpisz swoją opinię..."></textarea><br/>
            <input type = "hidden" name = "action" value = "newReview">
+           <input type = "hidden" name = "bookID" value = "<?php echo $_GET['bookid']?>">
            <input class = "form-submit" type="submit" value="Dodaj Recenzję"><br/><br/>
-           <?php echo isset($_SESSION['review_err']) ?  $_SESSION['review_err']  : "";?>
+           <?php 
+                echo isset($_SESSION['review_err']) ?  $_SESSION['review_err']  : "";
+                unset($_SESSION['review_err']);
+           ?>
        </form>
    </main>
-    <?php //! html template end ?>
     <script src = "ui/js/stars.js"></script>
 </body>
 </body>

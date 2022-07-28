@@ -1,6 +1,10 @@
 <?php 
 session_start();
 require_once "ui/book-card.php";
+require_once "../src/api/classes/books.php";
+
+$books = new Books();
+$highRatedBooks = $books->showBooks('highRated', isset($_SESSION['auth-token']));
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -16,8 +20,9 @@ require_once "ui/book-card.php";
         <section class = "books grid-el grid-el-main">
             <h2>Najwyżej oceniane Książki</h2>
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                foreach($highRatedBooks as $book){
+                    generateCard([$book['path'], $book['book_title'], $book['book_author'], $book['book_categories'], $book['date'], $book['book_rate']], $book['book_id']);
+                }
             ?>
             
         </section>

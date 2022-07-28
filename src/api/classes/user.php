@@ -90,3 +90,9 @@ class User{
 
     }
 }
+
+function getHandleFromID(int $id){
+     $sql = "SELECT `username` FROM `users` WHERE id = ?";
+     $db = new Database();
+     return $db->runQuery($sql, [$id])[0]['username'];
+}

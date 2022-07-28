@@ -1,6 +1,10 @@
 <?php 
 session_start() ;
 require_once "ui/book-card.php";
+
+require_once "../src/api/classes/books.php";
+$books = new Books();
+$categoryBooks = $books->showBooks('category', isset($_SESSION['auth-token']), [$_GET['category']]);
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -13,15 +17,14 @@ require_once "ui/book-card.php";
 <body class = "background-darker">
     <?php require_once 'ui/header.php'; ?>
     <main class = "two-el-layout grid-gap-small">
-        <?php //! PHP template start ?>
         <section class = "books grid-el grid-el-main">
             <h2>Książki z Kategorii - <?php echo $_GET['category'] ?></h2>
             <?php 
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
-                generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                foreach($categoryBooks as $book){
+                    generateCard([$book['path'], $book['book_title'], $book['book_author'], $_GET['category'], $book['date'], $book['book_rate']], $book['book_id']);
+                }
             ?>
         </section>
-        <?php //! PHP template start ?>
     </main>
 </body>
 </html>
