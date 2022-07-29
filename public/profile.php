@@ -35,7 +35,6 @@ if(!isset($_SESSION['auth-token'])){
                     }
                 ?>
             </div>
-            
         </section>
         <section class = "grid-el continue-reading">
             <h1>Kontynuuj czytanie</h1>

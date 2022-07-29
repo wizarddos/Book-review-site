@@ -27,18 +27,10 @@ if(!isset($_SESSION['auth-token'])){
             </ul>
         </nav>
         <section class = "grid-el grid-el-main">
-            <?php //! html template start ?>
             <section class = "content tab" id = "tab0">
                 <h2>Twoje Dane</h2>
                 <p>ID - <?php echo $userData['id'] ?></p>
-                <section class = "username">
-                    <p>Nazwa użytkownika - <?php echo $userData['username'] ?></p>
-                    <button class = "openForm" value= "changeName">Zmień</button>
-                    <form id = "changeName" class = "hidden" action="../src/api/userController.php?action=editUsername">
-                        <input class = "input-field" name = "newUserame" required />
-                        <button type = "submit" class = "form-submit">Zmień Nazwę</button>
-                    </form>
-                </section>
+                <p>Nazwa użytkownika - <?php echo $userData['username'] ?></p>
                 <section class = "email">
                     <p>Email - <?php echo $userData['email'] ?></p>
                     <button class = "openForm" value= "changeEmail">Zmień</button>
@@ -90,7 +82,6 @@ if(!isset($_SESSION['auth-token'])){
                     <button type = "submit" class = "danger-background form-submit">Usuń</button>
                 </form>
             </section>
-            <?php //! html template end ?>
         </section>
     </main>
     <script src = "ui/js/tabs.js"></script>

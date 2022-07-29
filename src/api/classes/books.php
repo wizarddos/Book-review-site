@@ -1,11 +1,14 @@
 <?php
 class Books{
     private object $db;
+    private object $eventlog;
 
     public function __construct()
     {   
         include('database.php');
+        include('eventlog.php');
         $this->db = new Database();
+        $this->eventlog = new Eventlog();
     }
 
     public function showBooks($type, $isLoged, $args = []){
@@ -71,8 +74,10 @@ class Books{
             $sql = 'UPDATE `books-info` SET `book_rate` = ? WHERE `book_id` = ?';
             $this->db->runQuery($sql, [$avg, $toBook]);
 
-
-            return true;
+            if($this->eventlog->logEvent(EVENT_TYPE_NEW_REVIEW, $_SESSION['auth-token'])){
+                return true;
+            }
+            return false;
         }
         
     }
@@ -87,7 +92,7 @@ class Books{
     }
 
     public function addNewBook($request, $added_by){
-        if(empty($request['title']) || empty($request['author']) || $request['desc']){
+        if(empty($request['title']) || empty($request['author']) || empty($request['desc'])){
             return false;
         }
         $title = htmlentities($request['title'], ENT_QUOTES, "UTF-8");
@@ -97,8 +102,11 @@ class Books{
         if(is_string($title) && is_string($author) && is_string($desc)){
             $sql = "INSERT INTO `books-to-check` VALUES(?, ?, ?, ?, ?)";
 
-            $this->db->runQuery($sql, [NULL, $title, $desc, $author, $added_by]);
-            return true;
+            $result = $this->db->runQuery($sql, [NULL, $title, $desc, $author, $added_by]);
+            if($this->eventlog->logEvent(EVENT_TYPE_NEW_BOOK, $_SESSION['auth-token'])){
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -141,8 +149,11 @@ class Books{
         
         $sql = "INSERT INTO `books-read` VALUES (?, ?, ?, ?, ?, ?)";
         $args = [NULL, $bookid, $token->id, 0, date('Y-m-d'), 0];
-
-        return $this->db->runQuery($sql, $args);
+        $this->db->runQuery($sql, $args);
+        if($this->eventlog->logEvent(EVENT_TYPE_START_READING, $_SESSION['auth-token'])){
+            return true;
+        }
+        
     }
 
     public function isBookBeingRead($bookID, $token){
@@ -201,7 +212,12 @@ class Books{
         
         $sql = $sql.'WHERE `book_id` = ? AND `reader_id` = ?';
         $result = $this->db->runQuery($sql, $args);
-        return true;
+
+        if($this->eventlog->logEvent(EVENT_TYPE_BOOK_READED_PAGES, $_SESSION['auth-token'])){
+            return true;
+        }
+
+        return false;
     }
 
     private function searchForBooks($sql, $request){

@@ -6,16 +6,22 @@ class User{
     private string $email;
     private string $ip;
     private bool $isAdmin;
+
     private object $db;
+    private object $eventlog;
 
     public function __construct()
     {
         include("database.php");
+        require_once "eventlog.php";
+
         $this->username = "";
         $this->id = 0;
         $this->email = "";
         $this->ip = $_SERVER['REMOTE_ADDR'];
+
         $this->db = new Database();
+        $this->eventlog = new Eventlog();
     }
 
     public function logIn(array $request) : bool{
@@ -44,7 +50,12 @@ class User{
                     'ip' => $this->ip,
                     'isAdmin' => $this->isAdmin
                 ]));
-                return true;
+
+                if($this->eventlog->logEvent(EVENT_TYPE_LOGIN, $_SESSION['auth-token'])){
+                    return true;
+                }
+
+                return false;
             }
         }
 
@@ -53,10 +64,12 @@ class User{
     }
 
     public function logout(){
-        session_unset();
-
-        header('Location: ../../public');
-        return true;
+        
+        if($this->eventlog->logEvent(EVENT_TYPE_LOGOUT, $_SESSION['auth-token'])){
+            session_unset();
+            header('Location: ../../public');
+            return true;
+        }
     }
 
     public function register($data){
