@@ -33,9 +33,16 @@ if(!isset($_SESSION['auth-token'])){
                 <p>Nazwa użytkownika - <?php echo $userData['username'] ?></p>
                 <section class = "email">
                     <p>Email - <?php echo $userData['email'] ?></p>
+                    <?php 
+                        if(isset($_SESSION['e_changemail'])){
+                            echo '<p class "text-danger">'.$_SESSION['e_changemail'].'</p>';
+                            unset($_SESSION['e_changemail']);
+                        }
+                    ?>
                     <button class = "openForm" value= "changeEmail">Zmień</button>
-                    <form id = "changeEmail" class = "hidden" action="../src/api/userController.php?action=changeEmail">
+                    <form id = "changeEmail" class = "hidden" action="../src/api/userController.php" method = 'get'>
                         <input type = "email" class = "input-field" name = "newEmail" required />
+                        <input type="hidden" name='action' value='changeEmail' />
                         <button type = "submit" class = "form-submit">Zmień Email</button>
                     </form>
                 </section>

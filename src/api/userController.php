@@ -29,6 +29,14 @@ if(!isset($request['action'])){
                 } break;
 
         case 'logout': $_SESSION['userClass']->logout(); break;
+        case 'changeEmail': 
+
+        if($_SESSION['userClass']->changeEmail($request)){
+            header('Location: ../../public/profile.php');
+        } else{
+            $_SESSION['e_changemail'] = ' Ten email jest już zajęty';
+            header('Location: ../../public/editProfile.php');
+        }break;
 
         default: echo json_encode(['error' => 'No such action']);
     }

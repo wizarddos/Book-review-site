@@ -102,6 +102,29 @@ class User{
         return false;
 
     }
+
+    public function changeEmail(array $request){
+        $email = filter_var($request['newEmail'], FILTER_VALIDATE_EMAIL) ?? null;
+
+        $email = htmlentities($email, ENT_QUOTES, 'UTF-8');
+
+
+        print_r($email);
+        $sql = 'SELECT * FROM `users` WHERE email = ?';
+        $result = $this->db->runQuery($sql, [$email]);
+
+        if(count($result) > 0)
+            return false;
+
+        $sql = 'UPDATE `users` SET email = ? WHERE id = ?';
+
+        $result = $this->db->runQuery($sql, [$email, json_decode(base64_decode($_SESSION['auth-token']))->id]);
+        if($this->eventlog->logEvent(EVENT_TYPE_CHANGE_MAIL, $_SESSION['auth-token'])){
+            return true;
+        }
+
+        return false;
+    }
 }
 
 function getHandleFromID(int $id){
