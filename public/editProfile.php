@@ -73,7 +73,7 @@ if(!isset($_SESSION['auth-token'])){
                     <input type = "password" class = "input-field" name = "oldPass" placeholder="Stare Hasło" /><br/>
                     <input type = "password" class = "input-field" name = "newPass" placeholder="Nowe Hasło" /><br/>
                     <input type = "password" class = "input-field" name = "repeatPass" placeholder="Powtórz hasło" /><br/>
-                    <input  type = "hidden" class = "input-field" value = "editPass" name = "action" />
+                    <input  type = "hidden" class = "input-field" value = "changePass" name = "action" />
                     <button type = "submit" class = "form-submit">Wyślij</button>
 
                 </form>

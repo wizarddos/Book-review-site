@@ -125,6 +125,30 @@ class User{
 
         return false;
     }
+
+    public function changePass(array $request){
+        $old = $request['oldPass'];
+        $new = $request['newPass'];
+        $repeated = $request['repeatPass'];
+        $id = json_decode(base64_decode($_SESSION['auth-token']))->id;
+
+        if($id){
+            $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+            $result = $this->db->runQuery($sql, [$id])[0];
+            
+            if(password_verify($old, $result['pass'])){
+                if($repeated === $new){
+                    $sql = "UPDATE `users` SET `pass` = ? WHERE `id` = ?";
+                    $result = $this->db->runQuery($sql, [password_hash($new, PASSWORD_DEFAULT), $id]);
+
+                    if($this->eventlog->logEvent(EVENT_TYPE_CHANGE_PASS, $_SESSION['auth-token'])){
+                        return true;
+                    }
+
+                }
+            }
+        }
+    }
 }
 
 function getHandleFromID(int $id){
