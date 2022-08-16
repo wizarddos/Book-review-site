@@ -46,6 +46,22 @@ if(!isset($request['action'])){
                     $_SESSION['e_changepass'] = 'Niepoprawne hasło';
                     header('Location: ../../public/editProfile.php');
                 } break;
+            
+        case 'addFriend':
+            if($_SESSION['userClass']->addFriend($request, $_SESSION['auth-token'])){
+                header('Location: ../../public/profile.php');
+            } else{
+                $_SESSION['e_friend'] = 'Taki użytkownik nie istnieje, bądź masz go już w znajomych';
+                header('Location: ../../public/editProfile.php');
+            } break;
+
+        case 'deleteFriend':
+            if($_SESSION['userClass']->deleteFriend($request, $_SESSION['auth-token'])){
+                header('Location: ../../public/profile.php');
+            } else{
+                $_SESSION['e_friend'] = 'Ta osoba nie jest twoim znajomym';
+                header('Location: ../../public/editProfile.php');
+            } break;
 
         default: echo json_encode(['error' => 'No such action']);
     }

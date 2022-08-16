@@ -4,6 +4,9 @@ if(!isset($_SESSION['auth-token'])){
     header('Location: 403.php');
 }else{
     $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
+    require_once "../src/api/classes/user.php";
+
+    $user = new User();
 }
 ?>
 <!DOCTYPE html>
@@ -23,7 +26,6 @@ if(!isset($_SESSION['auth-token'])){
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button active" >Twoje Dane</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button" >Znajomi</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button">Zmień Hasło</button></li>
-                <li class = "spacing"><button class = "tab-nav-button link-styled-button">Usuń profil</button></li>
             </ul>
         </nav>
         <section class = "grid-el grid-el-main">
@@ -50,22 +52,22 @@ if(!isset($_SESSION['auth-token'])){
             <section class = "content hidden tab" id = "tab1">
                 <h2>Twoi Znajomi</h2>
                 <button class = "openForm" value= "addFriend">Zmień</button>
-                <form id = "addFriend" class = "hidden" action="../src/api/userController.php?action=addFriend">
-                        <input type = "number" class = "input-field" name = "friendsid" placeholder="ID znajomego"/>
+                <form id = "addFriend" class = "hidden" action="../src/api/userController.php">
+                        <input type = "number" class = "input-field" name = "friendsid" placeholder="ID znajomego"  min = "0"/>
+                        <input type = 'hidden' value = 'addFriend' name = 'action'/>
                         <button type = "submit" class = "form-submit">Dodaj Znajomego</button>
                 </form>
                 <br/>
-                <a href = "user.php?userid=">Nazwa </a>
-                    <a class = "text-danger" href = "../src/api/userController.php?action=deletefriend&friendid=">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
 
-                <br/>
+                <?php
+                    if(isset($_SESSION['e_friend'])){
+                        echo '<p class = "text-danger">'.$_SESSION['e_friend'].'</p>';
+                        unset($_SESSION['e_friend']);
+                    }
+                    $user->showFriends($_SESSION['auth-token']);
+                ?>
+                   
 
-                <a href = "user.php?userid=">nazwa </a>
-                    <a class = "text-danger" href = "../src/api/userController.php?action=deletefriend&friendid=">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </a>
             </section>
             <section class = "content hidden tab" id = "tab2">
                 <h2>Zmień Hasło</h2>
@@ -76,17 +78,6 @@ if(!isset($_SESSION['auth-token'])){
                     <input  type = "hidden" class = "input-field" value = "changePass" name = "action" />
                     <button type = "submit" class = "form-submit">Wyślij</button>
 
-                </form>
-            </section>
-            <section class = "content hidden tab" id = "tab3">
-                <h2 class = "text-danger">Usuń Profil</h2>
-                <button class = "danger-background" id = "delete-profile">Usuń profil</button>
-                <form id = "delete-profile-form" class = "hidden" method="POST" action = "../src/api/userController.php">
-                    <legend>Uwaga! Tej decyzji nie można cofnąć</legend>
-                    <input type = "password" class = "input-field" placeholder="Wprowadź hasło"  required/>
-                    <input type = "hidden" name = "token" value = "<?php echo $_SESSION['auth-token'] ?>" />
-                    <input type = "hidden" name = "action" value = "delProfile" />
-                    <button type = "submit" class = "danger-background form-submit">Usuń</button>
                 </form>
             </section>
         </section>

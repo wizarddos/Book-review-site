@@ -149,6 +149,108 @@ class User{
             }
         }
     }
+
+    public function showFriends(string $token){
+        if($_SESSION['auth-token'] !== $token){
+            return false;
+        }
+        $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+        $id = json_decode(base64_decode($token))->id;
+
+        $result = $this->db->runQuery($sql, [$id])[0];
+        if(empty($result['friends'])){
+            echo '<p>Nie masz dodanych przyjaciół</p>';
+        }else{
+            $friends = explode(', ', $result['friends']);
+            foreach($friends as $friend){
+                $result = $this->db->runQuery($sql, [$friend])[0];
+                $name = $result['username'];
+                $id = $result['id'];
+
+                echo<<<END
+                    <a href = "user.php?userid=">$name</a>
+                    <a class = "text-danger" href = "../src/api/userController.php?action=deleteFriend&friendid=$id">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </a><br/>
+                END;
+            }
+
+            return true;
+        }
+
+        
+    }
+
+    public function addFriend($request, $token){
+        if(!is_numeric($request['friendsid']) || $token !== $_SESSION['auth-token']){
+            return false;
+        }
+
+        $friendid = $request['friendsid'];
+        $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+        $result = $this->db->runQuery($sql, [$friendid]);
+        if(!empty($result[0])){
+            $userID = json_decode(base64_decode($token))->id;
+
+            $result = $this->db->runQuery($sql, [$userID])[0];
+
+            if(stristr($result['friends'], $friendid)){
+                return false;
+            }
+
+            if(empty($result['friends'])){
+                $friends = $friendid;
+            }else{
+                $friends = $result['friends'].', '.$friendid;
+            }
+
+
+            $sql = 'UPDATE `users` SET `friends` = ? WHERE `id` = ?';
+
+            $result = $this->db->runQuery($sql, [$friends, $userID]);
+
+            if($this->eventlog->logEvent(EVENT_TYPE_ADD_FRIEND, $_SESSION['auth-token'])){
+                return true;
+            }
+        }else{
+            return false;
+        }
+        return false;
+    }
+
+    public function deleteFriend($request, $token){
+        if($token !== $_SESSION['auth-token']){
+            return false;
+        }
+
+        if(!is_numeric($request['friendid'])){
+            return false;
+        }
+
+        $friendToDelete = $request['friendid'];
+        $userID = json_decode(base64_decode($token))->id;
+        $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+
+        $result = $this->db->runQuery($sql, [$userID])[0];
+        $friends = explode(', ', $result['friends']);
+
+        if(in_array($friendToDelete, $friends)){
+            unset($friends[array_search($friendToDelete, $friends)]);
+
+            $newFriends = implode(', ', $friends);
+            $sql = 'UPDATE `users` SET `friends` = ? WHERE `id` = ?';
+            $this->db->runQuery($sql, [$newFriends, $userID]);
+
+            if($this->eventlog->logEvent(EVENT_TYPE_DELETE_FRIEND, $_SESSION['auth-token'])){
+                return true;
+            }
+
+            return false;
+        }else{
+            return false;
+        }
+        
+    }   
 }
 
 function getHandleFromID(int $id){

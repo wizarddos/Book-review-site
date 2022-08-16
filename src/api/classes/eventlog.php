@@ -9,7 +9,6 @@ define('EVENT_TYPE_LOGIN', 'u_login');
 define('EVENT_TYPE_LOGOUT', 'u_logout');
 define('EVENT_TYPE_CHANGE_PASS', 'u_changepass');
 define('EVENT_TYPE_CHANGE_MAIL', 'u_chagemail');
-define('EVENT_TYPE_DELETE_PROFILE', 'u_deleteprofile');
 
 define('EVENT_TYPE_ADD_FRIEND', 'f_addfriend');
 define('EVENT_TYPE_DELETE_FRIEND', 'f_deletefriend');
