@@ -3,8 +3,7 @@ class Books{
     private object $db;
     private object $eventlog;
 
-    public function __construct()
-    {   
+    public function __construct(){   
         include('database.php');
         include('eventlog.php');
         $this->db = new Database();
@@ -218,6 +217,27 @@ class Books{
         }
 
         return false;
+    }
+
+    public function fetchLastReadBook(int $userID){
+        $userID = is_numeric($userID) ? $userID : null;
+
+        if(!$userID){
+            return false;
+        }
+
+        $sql = 'SELECT * FROM `books-read` WHERE `reader_id` = ? AND `isFinished` = ? ORDER BY `read_id` DESC';
+        $result = $this->db->runQuery($sql, [$userID, true]);
+        if(empty($result)){
+            return false;
+        }
+        return $this->fetchForCard($result[0]['book_id']);
+    }
+
+    public function fetchLastReviev(int $userID){
+        $sql = 'SELECT * FROM `books-reviews` WHERE `reviewer_id` = ? ORDER BY `review-id` DESC';
+        
+        return $this->db->runQuery($sql, [$userID]);
     }
 
     private function searchForBooks($sql, $request){

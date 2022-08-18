@@ -4,10 +4,11 @@ if(!isset($_SESSION['auth-token'])){
     header('Location: 403.php');
 }else{
     $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
-    if($_GET['userid'] === $userData['id']){
+    if((int)$_GET['userid'] === $userData['id']){
         header('Location: profile.php');
     }else{
         require_once "ui/book-card.php";
+        require_once "../src/api/classes/books.php";
     }
 }
 ?>
@@ -21,14 +22,13 @@ if(!isset($_SESSION['auth-token'])){
 <body>
     <?php require_once 'ui/header.php'; ?>
 
-    <?php //! front-end template start ?>
         <main class = "book-layout">
             <section class = "left-panel">
                 <section class = "book-info">
                    
                     <section class = "left-panel-side">
-                        <h1 class = "book-title">Użytkownik - </h1>
-                        <p class = "book-author">Dołączył: </p>
+                        <h1 class = "book-title">Użytkownik - <?php echo $userData['username'] ?></h1>
+                        <p class = "book-author">Ranga: <?php echo $userData['isAdmin'] ? 'Administrator' : 'Użytkownik' ?> </p>
                     </section>
                 </section>
             </section>
@@ -37,25 +37,33 @@ if(!isset($_SESSION['auth-token'])){
                     <h2 class = "section-header">Ostatnio Przeczytana Książka</h2>
                     <p class = "book-desc">
                         <?php
-                         generateCard(['img/book-cover.jpg', 'Długi Tytuł', 'autor', '20.90','Kategoria','wydawca','2022-01-03', 3]);
+                            $books = new Books();
+                            $book = $books->fetchLastReadBook((int)$_GET['userid']);
+                            if($book){
+                                $book = $book[0];
+                                generateCard([$book['path'], $book['book_title'], $book['book_author'], $book['book_categories'], $book['date'], $book['book_rate']], $book['book_id']);
+                            }else{
+                                echo "<p>Twój znajomy nie skończył żadnej książki </p>";
+                            }
+                            
                         ?>
                     </p>
                 </section>
                 <section class = "book-reviews">
                     <h2 class = "section-header">Najnowsza Recenzja</h2>
                     <div class = "review">
-                        <p class = "review-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In bibendum risus felis, sit amet dignissim dolor mattis non.
-                            <br/>Aliquam mauris elit, maximus vitae lacus non, vehicula luctus dui. Maecenas sit amet tempus metus, sed placerat nulla. 
-                            <br/>Sed id felis varius, posuere quam a, iaculis sem. 
-                            <br/>In hac habitasse platea dictumst. 
-                            <br/> Sed venenatis ligula ac est consectetur, nec pretium mauris rutrum. 
-                            <br/>Donec lobortis ultrices ligula et egestas. Nulla accumsan, nisi ut viverra dapibus, nibh massa commodo ex, quis egestas ex lorem et quam.
-                            <br/> Curabitur nec magna tempor quam pulvinar tempor. 
-                            <br/>Curabitur pellentesque ut sapien congue pellentesque.
+                        <p class = "review-content">
+                            <?php
+                                $review = $books->fetchLastReviev((int)$_GET['userid']);
+
+                                if($review){
+                                    $review = $review[0];
+                                    echo $review['description'].' - '.$books->fetchForCard($review['book_reviewed_id'])[0]['book_title'];
+                                }
+                            ?>
                         </p>
                     </div>
                 </section>
         </main>    
-    <?php //! front-end template end ?>
 </body>
 </html>

@@ -5,6 +5,7 @@ if(!isset($_SESSION['auth-token'])){
 }else{
     $userData = json_decode(base64_decode($_SESSION['auth-token']), true);
     require_once "../src/api/classes/books.php";
+    require_once "../src/api/classes/user.php";
 
     $books = new Books();
 }
@@ -54,21 +55,21 @@ if(!isset($_SESSION['auth-token'])){
                 </ul>
         </section>
         <section class = "grid-el">
-            <h1>Ostatnia aktywność twoich znajomych</h1>
+            <h1>Ostatnia aktywność obserwowanych</h1>
             <section>
                 <ul class = "list">
-                    <?php //! PHP template start?> 
-                        <div class = "friends-activity">
-                            <a href = "user.php?userid=">{FriendName}</a>
-                            <p>{read/added/deleted/started}</p>
-                            <a href = "bookDetails.php?bookid=">{BookName}</a>
-                        </div>
-                        <div class = "friends-activity">
-                            <a href = "user.php?userid=">{FriendName}</a>
-                            <p>{read/added/deleted/started}</p>
-                            <a href = "bookDetails.php?bookid=">{BookName}</a>
-                        </div>
-                    <?php   //! PHP template end ?>
+                    <?php
+                        require_once "../src/api/classes/eventlog.php";
+                        $data = fetchFollowedPeopleEvents();
+
+                        foreach($data as $activity){
+                            echo '<li>Użytkownik '.getHandleFromID($activity['userid']).' '.matchDescriptionToEvent($activity['event']).'</li><br/>';
+                        }
+
+                        if(empty($data)){
+                            echo '<li>Nikogo nie obserwujesz</li>';
+                        }
+                    ?>
                 </ul>
             </section>
         </section>

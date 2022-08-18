@@ -5,8 +5,6 @@ define('EVENT_TYPE_BOOK_READED_PAGES', 'b_changedpages');
 define('EVENT_TYPE_START_READING', 'b_startreading');
 
 define('EVENT_TYPE_REGISTER', 'u_register');
-define('EVENT_TYPE_LOGIN', 'u_login');
-define('EVENT_TYPE_LOGOUT', 'u_logout');
 define('EVENT_TYPE_CHANGE_PASS', 'u_changepass');
 define('EVENT_TYPE_CHANGE_MAIL', 'u_chagemail');
 
@@ -40,5 +38,31 @@ class Eventlog{
         $result = $this->db->runQuery($sql, [NULL, $userToken->id, $event, date('Y-m-d'), $userToken->ip]);
         return true;
         
+    }
+}
+
+function fetchFollowedPeopleEvents(){
+    $sql = 'SELECT * FROM `users` WHERE `id` = ?';
+    $db = new Database();
+
+    $userid = json_decode(base64_decode($_SESSION['auth-token']))->id;
+
+    $friends = $db->runQuery($sql, [$userid])[0]['friends'];
+    
+
+    $sql = "SELECT * FROM `eventlog` WHERE `userid` IN(?) AND `event` LIKE 'b_%' ORDER BY `id` DESC LIMIT 3";
+    $result = $db->runQuery($sql, [$friends] );
+    
+
+    return $result;
+}
+
+function matchDescriptionToEvent($event){
+    switch($event){
+        case 'b_newbook': return 'dodał książkę'; break;
+        case 'b_newreview': return 'zrecenzował książkę'; break;
+        case 'b_changedpages': return 'przeczytał kolejne strony książki'; break;
+        case 'b_startreading': return 'zaczął nową książkę'; break;
+        default: return 'wykonał nieznaną aktywność'; break;
     }
 }

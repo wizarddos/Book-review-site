@@ -24,7 +24,7 @@ if(!isset($_SESSION['auth-token'])){
             <h2>Twój Profil</h2>
             <ul class = "list">
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button active" >Twoje Dane</button></li>
-                <li class = "spacing"><button class = "tab-nav-button link-styled-button" >Znajomi</button></li>
+                <li class = "spacing"><button class = "tab-nav-button link-styled-button" >Obserwowani</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button">Zmień Hasło</button></li>
             </ul>
         </nav>
@@ -50,12 +50,12 @@ if(!isset($_SESSION['auth-token'])){
                 </section>
             </section>
             <section class = "content hidden tab" id = "tab1">
-                <h2>Twoi Znajomi</h2>
+                <h2>Obserwowani</h2>
                 <button class = "openForm" value= "addFriend">Zmień</button>
                 <form id = "addFriend" class = "hidden" action="../src/api/userController.php">
                         <input type = "number" class = "input-field" name = "friendsid" placeholder="ID znajomego"  min = "0"/>
                         <input type = 'hidden' value = 'addFriend' name = 'action'/>
-                        <button type = "submit" class = "form-submit">Dodaj Znajomego</button>
+                        <button type = "submit" class = "form-submit">Obserwuj</button>
                 </form>
                 <br/>
 

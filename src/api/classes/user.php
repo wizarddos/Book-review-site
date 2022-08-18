@@ -51,9 +51,8 @@ class User{
                     'isAdmin' => $this->isAdmin
                 ]));
 
-                if($this->eventlog->logEvent(EVENT_TYPE_LOGIN, $_SESSION['auth-token'])){
-                    return true;
-                }
+                return true;
+
 
                 return false;
             }
@@ -65,11 +64,9 @@ class User{
 
     public function logout(){
         
-        if($this->eventlog->logEvent(EVENT_TYPE_LOGOUT, $_SESSION['auth-token'])){
-            session_unset();
-            header('Location: ../../public');
-            return true;
-        }
+        session_unset();
+        header('Location: ../../public');
+        return true;
     }
 
     public function register($data){
@@ -159,7 +156,7 @@ class User{
 
         $result = $this->db->runQuery($sql, [$id])[0];
         if(empty($result['friends'])){
-            echo '<p>Nie masz dodanych przyjaciół</p>';
+            echo '<p>Nikogo nie obserwujesz</p>';
         }else{
             $friends = explode(', ', $result['friends']);
             foreach($friends as $friend){
@@ -168,7 +165,7 @@ class User{
                 $id = $result['id'];
 
                 echo<<<END
-                    <a href = "user.php?userid=">$name</a>
+                    <a href = "user.php?userid=$id">$name</a>
                     <a class = "text-danger" href = "../src/api/userController.php?action=deleteFriend&friendid=$id">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </a><br/>
