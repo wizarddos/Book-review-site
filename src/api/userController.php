@@ -26,6 +26,8 @@ if(!isset($request['action'])){
                     if($_SESSION['userClass']->logIn(['username' => $request['username'], 'password' => $request['password']])){
                         header('Location: ../../public/profile.php');
                     }
+                }else{
+                    header('Location: ../../public/login.php');
                 } break;
 
         case 'logout': $_SESSION['userClass']->logout(); break;
