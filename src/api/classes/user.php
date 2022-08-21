@@ -255,3 +255,10 @@ function getHandleFromID(int $id){
      $db = new Database();
      return $db->runQuery($sql, [$id])[0]['username'];
 }
+
+function getAllUsers(){
+    $sql = 'SELECT `isAdmin` FROM `users`';
+    $db = new Database();
+    $result = $db->runQuery($sql, []);
+    return count($result);
+}
