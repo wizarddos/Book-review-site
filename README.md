@@ -1,7 +1,7 @@
 # Book-review-site
 
 ## About
-Web app written i vanilla php, html, css and js. There you can add, read and review books 
+Web app written in vanilla php, html, css and js. There you can add, read and review books 
 
 (Right now in 1.0 version)
 
@@ -18,7 +18,7 @@ Web app written i vanilla php, html, css and js. There you can add, read and rev
         ``` git clone https://github.com/wizarddos/Book-review-site ```
     2. Import dump to MYSQL database
     3. It's ready! Go to `http://localhost/Book-review-site` and enjoy
-        Test user data login - testuser, pass - test4
+        Test user data: login - testuser, pass - test4
 
 ## Contributing
 You can review code of this project if you want. I really appreciate that.
