@@ -29,3 +29,15 @@
 .button-accept:hover{
     background-color: #B2F55E;
 }
+
+.button-danger{
+    color: #000;
+    background-color: #DF2935;
+    border: 2px solid #000;
+    border-radius: 3px;
+    font-size: 100%;
+}
+
+.button-danger:hover{
+    background-color: #EF3A46;
+}

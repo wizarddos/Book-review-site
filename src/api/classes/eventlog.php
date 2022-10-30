@@ -11,6 +11,12 @@ define('EVENT_TYPE_CHANGE_MAIL', 'u_chagemail');
 define('EVENT_TYPE_ADD_FRIEND', 'f_addfriend');
 define('EVENT_TYPE_DELETE_FRIEND', 'f_deletefriend');
 
+define('ADMIN_EVENT_APPROVE_BOOK', 'a_approvebook');
+define('ADMIN_EVENT_USER_BANNED', 'a_userbanned');
+define('ADMIN_EVENT_USER_UNBANNED', 'a_userbanned');
+define('ADMIN_EVENT_ALTER_TABLE', 'a_altertable');
+
+
 
 if(session_id() === ''){
     session_start();
