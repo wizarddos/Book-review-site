@@ -51,6 +51,8 @@ if(!isset($request['action'])){
             }else{
                 
             }
+
+        default:  echo json_encode(['error' => 'Action does not exist']); break;
     }
 
 }

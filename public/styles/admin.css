@@ -18,3 +18,9 @@ tr.header{
 .text-accept:hover{
     color: #90D33E;
 }
+
+.category-select{
+    width: 25%;
+
+    font-size: larger;
+}
