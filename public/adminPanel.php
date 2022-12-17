@@ -48,20 +48,66 @@ if(!isset($_SESSION['auth-token'])){
                     <?php displayBooks($_SESSION['auth-token']) ?>
                </table>
             </section>
-            <section class = "content hidden tab" id = "tab1"></section>
-            <section class = "content hidden tab" id = "tab2">
-                <h2>Zmień Hasło</h2>
-                <form method = "POST" action="../src/api/userController.php">
-                    <input type = "password" class = "input-field" name = "oldPass" placeholder="Stare Hasło" /><br/>
-                    <input type = "password" class = "input-field" name = "newPass" placeholder="Nowe Hasło" /><br/>
-                    <input type = "password" class = "input-field" name = "repeatPass" placeholder="Powtórz hasło" /><br/>
-                    <input  type = "hidden" class = "input-field" value = "changePass" name = "action" />
-                    <button type = "submit" class = "form-submit">Wyślij</button>
-
-                </form>
+            <section class = "content hidden tab" id = "tab1">
+                <h2 class = "centered">Zdarzenia</h2>
+                <a href = "events.php">Przejdź do podstrony zdarzeń</a>
             </section>
-            <section class="content hidden tab" id="tab3"></section>
-            <section class="content hidden tab" id="tab4"></section>
+            <section class = "content hidden tab" id = "tab2">
+                <h2>Użytkownicy</h2>
+                <table class = 'admin-table'>
+                    <tr class = "header">
+                        <td>id</td>
+                        <td>nazwa</td>
+                        <td>e-mail</td>
+                    </tr>
+                    <?php
+                        $users = getUsers($_SESSION['auth-token']);
+
+                        foreach($users as $user){
+                            echo '<tr>';
+                                echo '<td>'.$user['id'].'</td>';
+                                echo $user['isBanned'] ? '<td class = "text-danger">' : "<td>";
+                                echo $user['username']."</td>";
+                                echo '<td>'.$user['email'].'</td>';
+                                echo '<td><button class = "button-danger" id="'.$user['id'].'">Ban</button></td>';
+                            echo '</tr>';
+                            
+                        }
+                    ?>
+               </table>
+            </section>
+            <section class="content hidden tab" id="tab3">
+                <h2 class = "centered">Tabele z bazy danych</h2>
+                <a href = "editTable.php">Przejdź do podstrony tabel</a>
+            </section>
+            <section class="content hidden tab" id="tab4">
+                <h2>Bany</h2>
+                <table class = 'admin-table'>
+                    <tr class = "header">
+                        <td>id</td>
+                        <td>nazwa</td>
+                        <td>e-mail</td>
+                    </tr>
+                    <?php
+                        $users = getUsers($_SESSION['auth-token']);
+
+                        $banned = array_filter($users, function($user){
+                            return $user['isBanned'] == 1;
+                        });
+
+                        foreach($banned as $user){
+                            echo '<tr>';
+                                echo '<td>'.$user['id'].'</td>';
+                                echo $user['isBanned'] ? '<td class = "text-danger">' : "<td>";
+                                echo $user['username']."</td>";
+                                echo '<td>'.$user['email'].'</td>';
+                                echo '<td><button class = "button-accept" id="'.$user['id'].'">unban</button></td>';
+                            echo '</tr>';
+                            
+                        }
+                    ?>
+                </table>
+            </section>
         </section>
     </main>
     <script src = "ui/js/tabs.js"></script>

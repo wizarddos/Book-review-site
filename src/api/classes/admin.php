@@ -81,7 +81,15 @@ function getCategories(string $token){
         echo '<option value = "'.$category['book_categories'].'">'.$category['book_categories'].'</option>';
     }
 }
-    
+
+
+function getUsers(string $token){
+    !isAdmin($token) ? header('Location: ../../../public/profile.php') : null;
+    global $db;
+    $sql = "SELECT `username`, `id`, `isBanned`, `isAdmin`, `email` FROM `users`";
+
+    return $db->runQuery($sql);
+}    
 
 
 function isAdmin(string $token){

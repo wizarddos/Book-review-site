@@ -29,7 +29,7 @@
 
                 $i = 0;
                 foreach($result as $book){
-                    if($i === 5){
+                    if($i == 5){
                         break;
                     }else{
                         $title = $book['book_title'];
@@ -52,6 +52,8 @@
                             <p class = 'title'>$title</p>
                         </section>
                         END;
+
+                        $i++;
                     }
                 }
             ?>
@@ -66,7 +68,7 @@
                         echo getAllUsers()
                     ?>
                 </p>
-                <p>Użytkowników i bądź częścią tej społeczności</p>
+                <p>Użytkowników i bądź częścią tej społeczności!</p>
         </section>
     </main>
 
