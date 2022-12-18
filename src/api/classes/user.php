@@ -37,6 +37,10 @@ class User{
             $user = $usernameResults[0];
             if(password_verify($pass, $user['pass'])){
                 
+                if($user['isBanned']){
+                    $_SESSION['login_err'] = "Na to konto została nałożona blokada w postaci bana";
+                    return false;
+                }
                 $this->username = $user['username'];
                 $this->id = $user['id'];
                 $this->email = $user['email'];
@@ -52,11 +56,12 @@ class User{
                 ]));
 
                 return true;
-
-
-                return false;
             }
+            $_SESSION['login_err'] = "Nieprawidłowy login lub hasło";
+          
+            return false;
         }
+        $_SESSION['login_err'] = "Nieprawidłowy login lub hasło";
 
         return false;
 

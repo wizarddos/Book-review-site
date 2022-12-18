@@ -1,4 +1,7 @@
-<?php 
+<?php
+
+use LDAP\Result;
+
 require_once 'database.php';
 require_once 'eventlog.php';
 $db = new Database();
@@ -90,6 +93,24 @@ function getUsers(string $token){
 
     return $db->runQuery($sql);
 }    
+
+function switchBan(string $token, array $data){
+    !isAdmin($token) ? header('Location: ../../../public/profile.php') : null;
+    global $db, $events;
+    
+    $id = is_numeric($data['userID']) ? $data['userID'] : null;
+
+    $sql = "SELECT `isBanned` FROM `users` WHERE `id` = ?";
+    $result = $db->runQuery($sql, [$id])[0];
+
+    $banUpdated = !$result['isBanned'];
+
+    $sql = "UPDATE `users` SET `isBanned` = ? WHERE `id` = ?";
+    $res = $db->runQuery($sql, [$banUpdated, $id]);
+    print_r(!$res);
+    return $events->logEvent(($banUpdated ? ADMIN_EVENT_USER_BANNED : ADMIN_EVENT_USER_UNBANNED), $token);
+ 
+}
 
 
 function isAdmin(string $token){

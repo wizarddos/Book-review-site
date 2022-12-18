@@ -69,7 +69,12 @@ if(!isset($_SESSION['auth-token'])){
                                 echo $user['isBanned'] ? '<td class = "text-danger">' : "<td>";
                                 echo $user['username']."</td>";
                                 echo '<td>'.$user['email'].'</td>';
-                                echo '<td><button class = "button-danger" id="'.$user['id'].'">Ban</button></td>';
+                                echo $user['isBanned'] ? "" : '<td>
+                                    <form method = "POST" action="../src/api/adminController.php">
+                                    <button class = "button-danger unban" name = "userID" value="'.$user['id'].'">Ban</button>
+                                    <input type = "hidden" name = "action" value = "switchBan" />
+                                    </form>
+                                </td>';
                             echo '</tr>';
                             
                         }
@@ -101,7 +106,12 @@ if(!isset($_SESSION['auth-token'])){
                                 echo $user['isBanned'] ? '<td class = "text-danger">' : "<td>";
                                 echo $user['username']."</td>";
                                 echo '<td>'.$user['email'].'</td>';
-                                echo '<td><button class = "button-accept" id="'.$user['id'].'">unban</button></td>';
+                                echo '<td>
+                                      <form method = "POST" action="../src/api/adminController.php">
+                                        <button class = "button-accept unban" name = "userID" value="'.$user['id'].'">unban</button>
+                                        <input type = "hidden" name = "action" value = "switchBan" />
+                                      </form>
+                                     </td>';
                             echo '</tr>';
                             
                         }

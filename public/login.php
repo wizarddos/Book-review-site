@@ -21,7 +21,13 @@ if(isset($_SESSION['auth-token'])){
             <label>Hasło:<input type="password" class = "input-field" name="password" placeholder="Hasło" required><br/></label>
             <input type = "hidden" name = "action" value = "login">
             <input class = "form-submit" type="submit" value="Zaloguj się"><br/><br/>
-            <?php echo isset($_SESSION['login_err']) ?  $_SESSION['login_err']  : "";?>
+            <?php 
+                if(isset($_SESSION['login_err'])){
+                    echo '<p class = "text-danger">'.$_SESSION['login_err'].'</p>';
+                    unset($_SESSION['login_err']);
+                }
+            ?>
+            <br/>
             <a class = "content-link" href = "register.php">Nie masz konta? Zarejestruj się!</a>
         </form>
     </main>

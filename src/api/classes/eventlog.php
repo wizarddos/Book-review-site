@@ -13,7 +13,7 @@ define('EVENT_TYPE_DELETE_FRIEND', 'f_deletefriend');
 
 define('ADMIN_EVENT_APPROVE_BOOK', 'a_approvebook');
 define('ADMIN_EVENT_USER_BANNED', 'a_userbanned');
-define('ADMIN_EVENT_USER_UNBANNED', 'a_userbanned');
+define('ADMIN_EVENT_USER_UNBANNED', 'a_userunbanned');
 define('ADMIN_EVENT_ALTER_TABLE', 'a_altertable');
 
 
