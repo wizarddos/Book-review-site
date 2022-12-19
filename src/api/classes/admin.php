@@ -1,7 +1,5 @@
 <?php
 
-use LDAP\Result;
-
 require_once 'database.php';
 require_once 'eventlog.php';
 $db = new Database();

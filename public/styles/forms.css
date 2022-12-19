@@ -41,3 +41,9 @@
 .button-danger:hover{
     background-color: #EF3A46;
 }
+
+.align-center{
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
