@@ -45,6 +45,12 @@ class Eventlog{
         return true;
         
     }
+
+    public function getEvents(int $userid, string $event){
+        $sql = "SELECT * FROM `".$this->tablename."` WHERE `userid` = ? AND `event` = ?";
+        $result = $this->db->runQuery($sql, [$userid, $event]);
+        return !empty($result) ?  $result : false;
+    }
 }
 
 function fetchFollowedPeopleEvents(){

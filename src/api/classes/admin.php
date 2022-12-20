@@ -105,9 +105,29 @@ function switchBan(string $token, array $data){
 
     $sql = "UPDATE `users` SET `isBanned` = ? WHERE `id` = ?";
     $res = $db->runQuery($sql, [$banUpdated, $id]);
-    print_r(!$res);
     return $events->logEvent(($banUpdated ? ADMIN_EVENT_USER_BANNED : ADMIN_EVENT_USER_UNBANNED), $token);
  
+}
+
+
+function getEvents(string $token, array $data){
+    !isAdmin($token) ? header('Location: ../../../public/profile.php') : null;
+    $_SESSION['userid'] = is_numeric($data['userid']) ? $data['userid'] : null;
+    $_SESSION['event'] = htmlentities($data['event'], ENT_QUOTES, "UTF-8");
+
+    global $events;
+
+    if(is_null($_SESSION['userid']) || is_null($_SESSION['event'])){
+        $_SESSION['getEventsResults'] = [];
+        return false;
+    }
+
+    $result = $events->getEvents($_SESSION['userid'], $_SESSION['event']);
+    if($result){
+        $_SESSION['getEventsResults'] = $result;
+        return true;
+    }
+
 }
 
 
