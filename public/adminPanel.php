@@ -32,7 +32,6 @@ if(!isset($_SESSION['auth-token'])){
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button active" >Propozycje książek</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button" >Zdarzenia</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button">Użytkownicy</button></li>
-                <li class = "spacing"><button class = "tab-nav-button link-styled-button">Edytuj Tabelę</button></li>
                 <li class = "spacing"><button class = "tab-nav-button link-styled-button">Bany</button></li>
             </ul>
         </nav>
@@ -82,10 +81,6 @@ if(!isset($_SESSION['auth-token'])){
                </table>
             </section>
             <section class="content hidden tab" id="tab3">
-                <h2 class = "centered">Tabele z bazy danych</h2>
-                <a href = "editTable.php">Przejdź do podstrony tabel</a>
-            </section>
-            <section class="content hidden tab" id="tab4">
                 <h2>Bany</h2>
                 <table class = 'admin-table'>
                     <tr class = "header">
