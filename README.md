@@ -3,7 +3,7 @@
 ## About
 Web app written in vanilla php, html, css and js. There you can add, read and review books 
 
-(Right now in 1.0 version)
+(Right now in 2.0 version)
 
 
 ## How to run
@@ -19,6 +19,7 @@ Web app written in vanilla php, html, css and js. There you can add, read and re
     2. Import dump to MYSQL database
     3. It's ready! Go to `http://localhost/Book-review-site` and enjoy
         Test user data: login - testuser, pass - test4
+        Test admin: login - test, pass - test
 
 ## Contributing
 You can review code of this project if you want. I really appreciate that.
